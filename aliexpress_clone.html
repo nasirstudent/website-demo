@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AliMart - Global Shopping Made Easy</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.18);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-top {
+            padding: 15px 0;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 30px;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            background: linear-gradient(45deg, #ff6b35, #f7931e);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-decoration: none;
+        }
+
+        .search-container {
+            flex: 1;
+            max-width: 600px;
+            position: relative;
+        }
+
+        .search-bar {
+            width: 100%;
+            padding: 12px 50px 12px 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 25px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.9);
+        }
+
+        .search-bar:focus {
+            outline: none;
+            border-color: #ff6b35;
+            box-shadow: 0 0 20px rgba(255, 107, 53, 0.3);
+            transform: scale(1.02);
+        }
+
+        .search-btn {
+            position: absolute;
+            right: 5px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: linear-gradient(45deg, #ff6b35, #f7931e);
+            border: none;
+            padding: 8px 15px;
+            border-radius: 20px;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .search-btn:hover {
+            transform: translateY(-50%) scale(1.1);
+            box-shadow: 0 5px 15px rgba(255, 107, 53, 0.4);
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .cart-btn {
+            position: relative;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .cart-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        .cart-count {
+            background: #ff4757;
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            position: absolute;
+            top: -8px;
+            right: -8px;
+        }
+
+        /* Navigation */
+        .nav-menu {
+            display: flex;
+            gap: 30px;
+            padding: 15px 0;
+            overflow-x: auto;
+        }
+
+        .nav-item {
+            color: #333;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 8px 16px;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .nav-item:hover {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, rgba(255, 107, 53, 0.9), rgba(247, 147, 30, 0.9));
+            color: white;
+            padding: 60px 0;
+            text-align: center;
+            margin-bottom: 40px;
+            border-radius: 20px;
+            margin-top: 20px;
+            backdrop-filter: blur(10px);
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            animation: slideInUp 1s ease;
+        }
+
+        .hero p {
+            font-size: 20px;
+            opacity: 0.9;
+            animation: slideInUp 1s ease 0.2s both;
+        }
+
+        /* Products Grid */
+        .products-section {
+            padding: 40px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 36px;
+            margin-bottom: 40px;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .product-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.2);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(45deg, #f0f0f0, #e0e0e0);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            color: #666;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-image::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.3), transparent);
+            transform: rotate(45deg);
+            animation: shimmer 2s infinite;
+        }
+
+        .product-info {
+            padding: 20px;
+        }
+
+        .product-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #333;
+            line-height: 1.4;
+        }
+
+        .product-price {
+            font-size: 20px;
+            font-weight: bold;
+            color: #ff6b35;
+            margin-bottom: 10px;
+        }
+
+        .product-rating {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            margin-bottom: 15px;
+            color: #666;
+        }
+
+        .stars {
+            color: #ffa500;
+        }
+
+        .add-to-cart {
+            width: 100%;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .add-to-cart:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        /* Filters */
+        .filters {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .filter-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .filter-btn {
+            padding: 8px 16px;
+            border: 2px solid #e0e0e0;
+            background: white;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 14px;
+        }
+
+        .filter-btn:hover, .filter-btn.active {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            border-color: transparent;
+            transform: scale(1.05);
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(51, 51, 51, 0.95);
+            color: white;
+            padding: 40px 0;
+            margin-top: 60px;
+            backdrop-filter: blur(10px);
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 15px;
+            color: #ff6b35;
+        }
+
+        .footer-section a {
+            color: #ccc;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 8px;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            color: #ff6b35;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid #555;
+            color: #ccc;
+        }
+
+        /* Animations */
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-200%) rotate(45deg); }
+            100% { transform: translateX(200%) rotate(45deg); }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .search-container {
+                max-width: 100%;
+            }
+
+            .hero h1 {
+                font-size: 32px;
+            }
+
+            .hero p {
+                font-size: 16px;
+            }
+
+            .nav-menu {
+                justify-content: flex-start;
+                padding-bottom: 10px;
+            }
+
+            .products-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+                gap: 20px;
+            }
+
+            .filter-group {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-top">
+                <div class="header-content">
+                    <a href="#" class="logo">AliMart</a>
+                    
+                    <div class="search-container">
+                        <input type="text" class="search-bar" placeholder="Search for products, brands and more..." id="searchInput">
+                        <button class="search-btn" onclick="searchProducts()">🔍</button>
+                    </div>
+                    
+                    <div class="header-actions">
+                        <button class="cart-btn" onclick="toggleCart()">
+                            🛒 Cart
+                            <span class="cart-count" id="cartCount">0</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <nav class="nav-menu">
+                <a href="#" class="nav-item" onclick="filterByCategory('all')">All Products</a>
+                <a href="#" class="nav-item" onclick="filterByCategory('electronics')">Electronics</a>
+                <a href="#" class="nav-item" onclick="filterByCategory('fashion')">Fashion</a>
+                <a href="#" class="nav-item" onclick="filterByCategory('home')">Home & Garden</a>
+                <a href="#" class="nav-item" onclick="filterByCategory('sports')">Sports</a>
+                <a href="#" class="nav-item" onclick="filterByCategory('beauty')">Beauty</a>
+                <a href="#" class="nav-item" onclick="filterByCategory('toys')">Toys & Games</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="hero">
+            <h1>Global Shopping Made Simple</h1>
+            <p>Discover millions of products from trusted sellers worldwide</p>
+        </section>
+
+        <section class="products-section">
+            <h2 class="section-title">Featured Products</h2>
+            
+            <div class="filters">
+                <div class="filter-group">
+                    <button class="filter-btn active" onclick="sortProducts('featured')">Featured</button>
+                    <button class="filter-btn" onclick="sortProducts('price-low')">Price: Low to High</button>
+                    <button class="filter-btn" onclick="sortProducts('price-high')">Price: High to Low</button>
+                    <button class="filter-btn" onclick="sortProducts('rating')">Best Rated</button>
+                    <button class="filter-btn" onclick="sortProducts('newest')">Newest</button>
+                </div>
+            </div>
+
+            <div class="products-grid" id="productsGrid">
+                <!-- Products will be dynamically loaded here -->
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Customer Service</h3>
+                    <a href="#">Help Center</a>
+                    <a href="#">Disputes & Reports</a>
+                    <a href="#">Buyer Protection</a>
+                    <a href="#">Report IPR infringement</a>
+                </div>
+                <div class="footer-section">
+                    <h3>Shopping</h3>
+                    <a href="#">All Popular</a>
+                    <a href="#">Product</a>
+                    <a href="#">Promotion</a>
+                    <a href="#">Low Price</a>
+                </div>
+                <div class="footer-section">
+                    <h3>Sell On AliMart</h3>
+                    <a href="#">Seller Portal</a>
+                    <a href="#">Become a Seller</a>
+                    <a href="#">Seller Central</a>
+                    <a href="#">Affiliate Program</a>
+                </div>
+                <div class="footer-section">
+                    <h3>Company Info</h3>
+                    <a href="#">About Us</a>
+                    <a href="#">Careers</a>
+                    <a href="#">News</a>
+                    <a href="#">Investors</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 AliMart. All rights reserved. | Privacy Policy | Terms of Service</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Sample product data
+        const products = [
+            {
+                id: 1,
+                title: "Wireless Bluetooth Earbuds with Noise Cancellation",
+                price: "$29.99",
+                originalPrice: "$59.99",
+                rating: 4.5,
+                reviews: 1234,
+                category: "electronics",
+                featured: true
+            },
+            {
+                id: 2,
+                title: "Premium Cotton T-Shirt Casual Wear",
+                price: "$12.99",
+                originalPrice: "$24.99",
+                rating: 4.3,
+                reviews: 856,
+                category: "fashion",
+                featured: true
+            },
+            {
+                id: 3,
+                title: "Smart LED Strip Lights RGB Color Changing",
+                price: "$19.99",
+                originalPrice: "$39.99",
+                rating: 4.7,
+                reviews: 2103,
+                category: "home",
+                featured: false
+            },
+            {
+                id: 4,
+                title: "Fitness Tracker Smart Watch Waterproof",
+                price: "$45.99",
+                originalPrice: "$89.99",
+                rating: 4.4,
+                reviews: 1567,
+                category: "sports",
+                featured: true
+            },
+            {
+                id: 5,
+                title: "Skincare Set Anti-Aging Face Cream",
+                price: "$34.99",
+                originalPrice: "$69.99",
+                rating: 4.6,
+                reviews: 923,
+                category: "beauty",
+                featured: false
+            },
+            {
+                id: 6,
+                title: "Remote Control Flying Drone with Camera",
+                price: "$89.99",
+                originalPrice: "$149.99",
+                rating: 4.2,
+                reviews: 654,
+                category: "toys",
+                featured: true
+            },
+            {
+                id: 7,
+                title: "Portable Phone Charger Power Bank 20000mAh",
+                price: "$24.99",
+                originalPrice: "$49.99",
+                rating: 4.5,
+                reviews: 1876,
+                category: "electronics",
+                featured: false
+            },
+            {
+                id: 8,
+                title: "Stylish Sunglasses UV Protection Designer",
+                price: "$16.99",
+                originalPrice: "$32.99",
+                rating: 4.1,
+                reviews: 743,
+                category: "fashion",
+                featured: false
+            },
+            {
+                id: 9,
+                title: "Kitchen Knife Set Professional Chef Quality",
+                price: "$39.99",
+                originalPrice: "$79.99",
+                rating: 4.8,
+                reviews: 1432,
+                category: "home",
+                featured: true
+            }
+        ];
+
+        let cart = [];
+        let currentFilter = 'all';
+        let currentSort = 'featured';
+
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', function() {
+            displayProducts(products);
+            updateCartCount();
+        });
+
+        // Display products
+        function displayProducts(productsToShow) {
+            const productsGrid = document.getElementById('productsGrid');
+            productsGrid.innerHTML = '';
+
+            productsToShow.forEach(product => {
+                const productCard = createProductCard(product);
+                productsGrid.appendChild(productCard);
+            });
+        }
+
+        // Create product card
+        function createProductCard(product) {
+            const card = document.createElement('div');
+            card.className = 'product-card';
+            
+            const stars = '★'.repeat(Math.floor(product.rating)) + '☆'.repeat(5 - Math.floor(product.rating));
+            
+            card.innerHTML = `
+                <div class="product-image">
+                    📦 Product Image
+                </div>
+                <div class="product-info">
+                    <div class="product-title">${product.title}</div>
+                    <div class="product-price">
+                        ${product.price} 
+                        <small style="text-decoration: line-through; color: #999; margin-left: 8px;">${product.originalPrice}</small>
+                    </div>
+                    <div class="product-rating">
+                        <span class="stars">${stars}</span>
+                        <span>${product.rating}</span>
+                        <span>(${product.reviews})</span>
+                    </div>
+                    <button class="add-to-cart" onclick="addToCart(${product.id})">
+                        Add to Cart
+                    </button>
+                </div>
+            `;
+            
+            return card;
+        }
+
+        // Filter by category
+        function filterByCategory(category) {
+            currentFilter = category;
+            
+            // Update nav active state
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            let filteredProducts = category === 'all' ? products : products.filter(product => product.category === category);
+            filteredProducts = sortProductsArray(filteredProducts, currentSort);
+            displayProducts(filteredProducts);
+        }
+
+        // Sort products
+        function sortProducts(sortType) {
+            currentSort = sortType;
+            
+            // Update filter button active state
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            let filteredProducts = currentFilter === 'all' ? products : products.filter(product => product.category === currentFilter);
+            filteredProducts = sortProductsArray(filteredProducts, sortType);
+            displayProducts(filteredProducts);
+        }
+
+        // Sort products array
+        function sortProductsArray(productsArray, sortType) {
+            const sorted = [...productsArray];
+            
+            switch(sortType) {
+                case 'price-low':
+                    return sorted.sort((a, b) => parseFloat(a.price.replace('$', '')) - parseFloat(b.price.replace('$', '')));
+                case 'price-high':
+                    return sorted.sort((a, b) => parseFloat(b.price.replace('$', '')) - parseFloat(a.price.replace('$', '')));
+                case 'rating':
+                    return sorted.sort((a, b) => b.rating - a.rating);
+                case 'newest':
+                    return sorted.sort((a, b) => b.id - a.id);
+                case 'featured':
+                default:
+                    return sorted.sort((a, b) => b.featured - a.featured);
+            }
+        }
+
+        // Search products
+        function searchProducts() {
+            const query = document.getElementById('searchInput').value.toLowerCase();
+            if (!query) {
+                displayProducts(products);
+                return;
+            }
+            
+            const searchResults = products.filter(product => 
+                product.title.toLowerCase().includes(query)
+            );
+            displayProducts(searchResults);
+        }
+
+        // Add to cart
+        function addToCart(productId) {
+            const product = products.find(p => p.id === productId);
+            if (product) {
+                cart.push(product);
+                updateCartCount();
+                
+                // Show success animation
+                event.target.style.background = 'linear-gradient(45deg, #2ecc71, #27ae60)';
+                event.target.textContent = 'Added!';
+                
+                setTimeout(() => {
+                    event.target.style.background = 'linear-gradient(45deg, #667eea, #764ba2)';
+                    event.target.textContent = 'Add to Cart';
+                }, 1000);
+            }
+        }
+
+        // Update cart count
+        function updateCartCount() {
+            document.getElementById('cartCount').textContent = cart.length;
+        }
+
+        // Toggle cart (placeholder)
+        function toggleCart() {
+            if (cart.length === 0) {
+                alert('Your cart is empty!');
+            } else {
+                const cartItems = cart.map(item => item.title).join('\n');
+                alert(`Cart Items:\n${cartItems}\n\nTotal Items: ${cart.length}`);
+            }
+        }
+
+        // Search on Enter key
+        document.getElementById('searchInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                searchProducts();
+            }
+        });
+    </script>
+</body>
+</html>
